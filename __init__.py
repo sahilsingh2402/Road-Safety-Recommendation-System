@@ -119,7 +119,7 @@ light_style = """
     }
     
     #footer {
-        font-size: 14px;
+        font-size: 18px;
         margin-top: 50px;
         margin-bottom: 20px;
         color: #FFFFFF;
@@ -154,7 +154,7 @@ dark_style = """
     }
     
     #button:hover {
-        background: #00A2E8;
+        background: #00e9E8
     }
     
     #label {
@@ -183,7 +183,7 @@ dark_style = """
     }
     
     #close_reset_button:hover {
-        background: #00A2E8;
+        background: #00e9E8;
     }
     
     #theme_change {
@@ -201,7 +201,7 @@ dark_style = """
     }
     
     #footer {
-        font-size: 14px;
+        font-size: 18px;
         margin-top: 50px;
         margin-bottom: 20px;
         color: #EDEDED;
@@ -719,46 +719,38 @@ class DNDS(QWidget):
 		
 		# Home page of Drowsiness dissuader system
 		def home_page():
-			# params = {
-			# 'access_key': 'a9c76d04eb47c7fc0ec0d108b6601063',
-			# 'query': 'Lucknow'
-			# }
-			# api_result = requests.get('https://api.weatherstack.com/current', params)
-			# api_response = api_result.json()
-			# print(api_response)
-			BASE_URL = "http://api.weatherstack.com/current?"
-
-			# define your API key
-			API_KEY = "5dc6b4cd47a5e570bac27dd937848003"
-
-			# define a function to get the weather for a given city
-			city = 'Bhubaneswar, Odisha, India'
-
-			# build the url with the city, the metric system (celsius), and your API key
-			url = BASE_URL + "access_key=" + API_KEY + "&query=" + city + "&units=m"
-			
-			# send a GET request to the API
-			response = requests.get(url)
-			
-			# parse the JSON data in the response
-			data = response.json()
-			
-			# extract the relevant weather information
-			description = data["current"]["weather_descriptions"][0]
-			temperature = data["current"]["temperature"]
-			humidity = data["current"]["humidity"]
-			wind_speed = data["current"]["wind_speed"]
-			
-			# print the weather information
-			print(f"Weather in {city}:")
-			print(f"Description: {description}")
-			print(f"Temperature: {temperature} °C")
-			print(f"Humidity: {humidity}%")
-			print(f"Wind Speed: {wind_speed} km/h")
-
 			# example usage
-			
 			try:
+				BASE_URL = "http://api.weatherstack.com/current?"
+
+				# define your API key
+				API_KEY = "5dc6b4cd47a5e570bac27dd937848003"
+
+				# define a function to get the weather for a given city
+				city = 'Bhubaneswar, Odisha, India'
+
+				# build the url with the city, the metric system (celsius), and your API key
+				url = BASE_URL + "access_key=" + API_KEY + "&query=" + city + "&units=m"
+				
+				# send a GET request to the API
+				response = requests.get(url)
+				
+				# parse the JSON data in the response
+				data = response.json()
+				
+				# extract the relevant weather information
+				description = data["current"]["weather_descriptions"][0]
+				temperature = data["current"]["temperature"]
+				humidity = data["current"]["humidity"]
+				wind_speed = data["current"]["wind_speed"]
+				
+				# print the weather information
+				print(f"Weather in {city}:")
+				print(f"Description: {description}")
+				print(f"Temperature: {temperature} °C")
+				print(f"Humidity: {humidity}%")
+				print(f"Wind Speed: {wind_speed} km/h")
+
 				# header widget
 				header = create_label()
 				header.setObjectName("header")
@@ -814,8 +806,7 @@ class DNDS(QWidget):
 			        'Temperature: {} °C\n'\
 			        'Humidity: {}%\n'\
 			        'Wind Speed: {} km/h\n'\
-					'\n\n\nRoad Safety Recommendation System is a vehicle safety system that detects drivers ' \
-					'drowsiness, yawning, detect the road lanes and other objects in front of the vehicle'.format(city,description, temperature, humidity, wind_speed)
+					.format(city,description, temperature, humidity, wind_speed)
 				footer.setAlignment(QtCore.Qt.AlignCenter)
 				footer.setText(footer_text)
 				footer.setWordWrap(True)
