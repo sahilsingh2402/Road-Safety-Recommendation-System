@@ -13,6 +13,9 @@ from PyQt5 import QtCore
 import darkdetect  # To set application theme according to the operating system
 import sys  # For system functions
 import os  # For OS functions
+import requests
+ 
+
 
 # Dictionary to store all the widgets of the GUI application
 widgets = {
@@ -716,6 +719,45 @@ class DNDS(QWidget):
 		
 		# Home page of Drowsiness dissuader system
 		def home_page():
+			# params = {
+			# 'access_key': 'a9c76d04eb47c7fc0ec0d108b6601063',
+			# 'query': 'Lucknow'
+			# }
+			# api_result = requests.get('https://api.weatherstack.com/current', params)
+			# api_response = api_result.json()
+			# print(api_response)
+			BASE_URL = "http://api.weatherstack.com/current?"
+
+			# define your API key
+			API_KEY = "5dc6b4cd47a5e570bac27dd937848003"
+
+			# define a function to get the weather for a given city
+			city = 'Bhubaneswar, Odisha, India'
+
+			# build the url with the city, the metric system (celsius), and your API key
+			url = BASE_URL + "access_key=" + API_KEY + "&query=" + city + "&units=m"
+			
+			# send a GET request to the API
+			response = requests.get(url)
+			
+			# parse the JSON data in the response
+			data = response.json()
+			
+			# extract the relevant weather information
+			description = data["current"]["weather_descriptions"][0]
+			temperature = data["current"]["temperature"]
+			humidity = data["current"]["humidity"]
+			wind_speed = data["current"]["wind_speed"]
+			
+			# print the weather information
+			print(f"Weather in {city}:")
+			print(f"Description: {description}")
+			print(f"Temperature: {temperature} °C")
+			print(f"Humidity: {humidity}%")
+			print(f"Wind Speed: {wind_speed} km/h")
+
+			# example usage
+			
 			try:
 				# header widget
 				header = create_label()
@@ -767,13 +809,18 @@ class DNDS(QWidget):
 				footer = create_label()
 				footer.setObjectName("footer")
 				footer_text = \
-					'Road Safety Recommendation System is a vehicle safety system that detects drivers ' \
-					'drowsiness and yawning.\nThe system also monitors the road in front to detect the road lanes ' \
-					'and other object in front of the vehicle'
+					'Weather in {}\n'\
+					'Description: {}\n'\
+			        'Temperature: {} °C\n'\
+			        'Humidity: {}%\n'\
+			        'Wind Speed: {} km/h\n'\
+					'\n\n\nRoad Safety Recommendation System is a vehicle safety system that detects drivers ' \
+					'drowsiness, yawning, detect the road lanes and other objects in front of the vehicle'.format(city,description, temperature, humidity, wind_speed)
 				footer.setAlignment(QtCore.Qt.AlignCenter)
 				footer.setText(footer_text)
 				footer.setWordWrap(True)
 				widgets["footer"].append(footer)
+				
 				
 				# place widgets on the grid
 				grid.addWidget(widgets["close_reset_dnds"][-1], 0, 0, 1, 1)
