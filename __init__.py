@@ -347,7 +347,7 @@ class DNDS(QWidget):
 					QPushButton:hover{
 						background: #AF0F23;}""")
 			confirm_close_reset.setWindowOpacity(0.95)
-			confirm_close_reset.setText("Thank you for using DNDS.")
+			confirm_close_reset.setText("Thank you for using RSRS.")
 			confirm_close_reset.setStandardButtons(QMessageBox.Cancel | QMessageBox.Close | QMessageBox.Reset)
 			confirm_close_reset = confirm_close_reset.exec()
 			# If user confirms close then exit app
@@ -800,13 +800,19 @@ class DNDS(QWidget):
 				# footer widget
 				footer = create_label()
 				footer.setObjectName("footer")
-				footer_text = \
-					'Weather in {}\n'\
-					'Description: {}\n'\
-			        'Temperature: {} °C\n'\
-			        'Humidity: {}%\n'\
-			        'Wind Speed: {} km/h\n'\
-					.format(city,description, temperature, humidity, wind_speed)
+				footer_text = """Weather in Bhubaneswar, Odisha, India:
+					Description: Haze
+					Temperature: 27 °C
+					Humidity: 100%
+					Wind Speed: 4 km/h
+				"""
+				# footer_text = \
+				# 	'Weather in {}\n'\
+				# 	'Description: {}\n'\
+			    #     'Temperature: {} °C\n'\
+			    #     'Humidity: {}%\n'\
+			    #     'Wind Speed: {} km/h\n'\
+				# 	.format(city,description, temperature, humidity, wind_speed)
 				footer.setAlignment(QtCore.Qt.AlignCenter)
 				footer.setText(footer_text)
 				footer.setWordWrap(True)
