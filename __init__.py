@@ -13,9 +13,6 @@ from PyQt5 import QtCore
 import darkdetect  # To set application theme according to the operating system
 import sys  # For system functions
 import os  # For OS functions
-import requests
- 
-
 
 # Dictionary to store all the widgets of the GUI application
 widgets = {
@@ -48,170 +45,127 @@ widgets = {
 
 # Stylesheet for light mode
 light_style = """
-    * {
-        color: #FFFFFF;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    
-    #centralwidget {
-        background: #1B1B1B;
-        border: 2px solid #00BFFF;
-        border-radius: 10px;
-    }
-    
-    #button {
-        color: #FFFFFF;
-        border: none;
-        background: #00BFFF;
-        border-radius: 10px;
-        font-size: 18px;
-        font-weight: bold;
-        width: 120px;
-        height: 40px;
-        margin: 10px;
-    }
-    
-    #button:hover {
-        background: #0080FF;
-    }
-    
-    #label {
-        font-size: 20px;
-        border-radius: 5px;
-        color: #FFFFFF;
-        background: #1B1B1B;
-        padding: 5px;
-    }
-    
-    #header {
-        font-weight: bold;
-        font-size: 48px;
-        margin-top: 20px;
-        margin-bottom: 30px;
-        color: #00BFFF;
-    }
-    
-    #close_reset_button {
-        background: #00BFFF;
-        font-size: 16px;
-        font-weight: bold;
-        border-radius: 5px;
-        padding: 5px 10px;
-        color: #FFFFFF;
-    }
-    
-    #close_reset_button:hover {
-        background: #0080FF;
-    }
-    
-    #theme_change {
-        background: url(dependencies/images/sun.png) no-repeat center;
-        font-size: 16px;
-        font-weight: bold;
-        border-radius: 5px;
-        padding: 5px 10px 5px 30px;
-        color: #00BFFF;
-    }
-    
-    #theme_change:hover {
-        background: url(dependencies/images/moon.png) no-repeat center;
-        background-position: 10px;
-    }
-    
-    #footer {
-        font-size: 18px;
-        margin-top: 50px;
-        margin-bottom: 20px;
-        color: #FFFFFF;
-        text-align: center;
-    }
-    
-    /* This is the end of futuristic stylesheet */"""
+	*{
+		color: #7F7F7F;}
+		
+	#centralwidget{
+		background: #F0EBEB;
+		border-radius: 20%;}
+	
+	#button{
+		color: #CCCCCC;
+		border: 1px solid #FF1937;
+		background: #372D2D;
+		border-radius : 30%;
+		font-size: 20px;
+		width: 50px;
+		height: 50px;
+		padding: 5%;
+		margin: 15%;}
+		
+	#button:hover{
+		background: #AF0F23;
+		border: 1px solid #343030;}
+	
+	#label{
+		font-size: 20px;
+		border-radius: 10%;}
+	
+	#header{
+		font-weight: bold;
+		font-size: 48px;
+		margin-top: 5%}
+
+	#close_reset_button{
+		background: #F0EBEB;
+		font-size: 20px;
+		font-weight: bold;
+		border-radius : 12px;
+		padding: 1%;}
+		
+	#close_reset_button:hover{
+		color: #CCCCCC;
+		background: #AF0F23;
+		border: 1px solid #343030;}
+	
+	#theme_change{
+		background: url(dependencies/images/sun.png) repeat-x left top;
+		font-size: 20px;
+		font-weight: bold;
+		border-radius : 16px;
+		padding: 1%;}
+
+	#theme_change:hover{
+		background: url(dependencies/images/moon.png) repeat-x left top;}
+	
+	#footer{
+		font-size: 14px;
+		margin-bottom: 5%}
+		
+		/* This is the end of light stylesheet */"""
 
 # Stylesheet for dark mode
 dark_style = """
-    * {
-        color: #EDEDED;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    
-    #centralwidget {
-        background: #0C0D14;
-        border: 2px solid #FF8000;
-        border-radius: 10px;
-    }
-    
-    #button {
-        color: #EDEDED;
-        border: none;
-        background: #FF8000;
-        border-radius: 10px;
-        font-size: 18px;
-        font-weight: bold;
-        width: 120px;
-        height: 40px;
-        margin: 10px;
-    }
-    
-    #button:hover {
-        background: #00e9E8
-    }
-    
-    #label {
-        font-size: 20px;
-        border-radius: 5px;
-        color: #EDEDED;
-        background: #0C0D14;
-        padding: 5px;
-    }
-    
-    #header {
-        font-weight: bold;
-        font-size: 48px;
-        margin-top: 20px;
-        margin-bottom: 30px;
-        color: #FF8000;
-    }
-    
-    #close_reset_button {
-        background: #FF8000;
-        font-size: 16px;
-        font-weight: bold;
-        border-radius: 5px;
-        padding: 5px 10px;
-        color: #EDEDED;
-    }
-    
-    #close_reset_button:hover {
-        background: #00e9E8;
-    }
-    
-    #theme_change {
-        background: url(dependencies/images/sun.png) no-repeat center;
-        font-size: 16px;
-        font-weight: bold;
-        border-radius: 5px;
-        padding: 5px 10px 5px 30px;
-        color: #FF8000;
-    }
-    
-    #theme_change:hover {
-        background: url(dependencies/images/moon.png) no-repeat center;
-        background-position: 10px;
-    }
-    
-    #footer {
-        font-size: 18px;
-        margin-top: 50px;
-        margin-bottom: 20px;
-        color: #EDEDED;
-        text-align: center;
-    }
-    
-    /* This is the end of futuristic dark stylesheet */"""
+	*{
+		color: #B3B3B3;}
+		
+	#centralwidget{
+		background: #282323;
+		border-radius: 20%;}
+	
+	#button{
+		color: #cccccc;
+		border: 1px solid #7D0A19;
+		background: #191414;
+		font-size: 20px;
+		border-radius : 30%;
+		width: 50px;
+		height: 50px;
+		padding: 5%;
+		margin: 15%;}
+
+	#button:hover{
+		background: #7D0A19;
+		border: 1px solid #343030;}
+
+	#label{
+		font-size: 20px;
+		border-radius: 30%;}
+
+	#header{
+		font-weight: bold;
+		font-size: 48px;
+		margin-top: 5%}
+
+	#close_reset_button{
+		background: #191414;
+		font-size: 20px;
+		font-weight: bold;
+		border-radius : 12px;
+		padding: 1%;}
+
+	#close_reset_button:hover{
+		background: #7D0A19;
+		border: 1px solid #343030;}
+	
+	#theme_change{
+		background: url(dependencies/images/moon.png) repeat-x left top;
+		font-size: 20px;
+		font-weight: bold;
+		border-radius : 16px;
+		padding: 1%;}
+
+	#theme_change:hover{
+		background: url(dependencies/images/sun.png) repeat-x left top;}
+		
+	#footer{
+		font-size: 14px;
+		margin-bottom: 5%}
+		
+		/* This is the end of dark stylesheet */"""
 
 
-# Road Safety Recommendation System main class
+# Driving Negligence Dissuader System main class
 class DNDS(QWidget):
 	# Methods to move the frameless window upon drag
 	def mousePressEvent(self, event):
@@ -347,7 +301,7 @@ class DNDS(QWidget):
 					QPushButton:hover{
 						background: #AF0F23;}""")
 			confirm_close_reset.setWindowOpacity(0.95)
-			confirm_close_reset.setText("Thank you for using RSRS.")
+			confirm_close_reset.setText("Thank you for using DNDS.")
 			confirm_close_reset.setStandardButtons(QMessageBox.Cancel | QMessageBox.Close | QMessageBox.Reset)
 			confirm_close_reset = confirm_close_reset.exec()
 			# If user confirms close then exit app
@@ -719,46 +673,15 @@ class DNDS(QWidget):
 		
 		# Home page of Drowsiness dissuader system
 		def home_page():
-			# example usage
 			try:
-				BASE_URL = "http://api.weatherstack.com/current?"
-
-				# define your API key
-				API_KEY = "5dc6b4cd47a5e570bac27dd937848003"
-
-				# define a function to get the weather for a given city
-				city = 'Bhubaneswar, Odisha, India'
-
-				# build the url with the city, the metric system (celsius), and your API key
-				url = BASE_URL + "access_key=" + API_KEY + "&query=" + city + "&units=m"
-				
-				# send a GET request to the API
-				response = requests.get(url)
-				
-				# parse the JSON data in the response
-				data = response.json()
-				
-				# extract the relevant weather information
-				description = data["current"]["weather_descriptions"][0]
-				temperature = data["current"]["temperature"]
-				humidity = data["current"]["humidity"]
-				wind_speed = data["current"]["wind_speed"]
-				
-				# print the weather information
-				print(f"Weather in {city}:")
-				print(f"Description: {description}")
-				print(f"Temperature: {temperature} °C")
-				print(f"Humidity: {humidity}%")
-				print(f"Wind Speed: {wind_speed} km/h")
-
 				# header widget
 				header = create_label()
 				header.setObjectName("header")
-				header.setText("Road Safety\nRecommendation System")
+				header.setText("Driving Negligence Dissuader")
 				header.setAlignment(QtCore.Qt.AlignCenter)
 				widgets["header"].append(header)
 				
-				# Exit Road Safety Recommendation System bbutton
+				# Exit Driving Negligence Dissuader System button
 				close_reset_dnds = create_button("X")
 				close_reset_dnds.setObjectName("close_reset_button")
 				close_reset_dnds.clicked.connect(close_operation)
@@ -792,32 +715,22 @@ class DNDS(QWidget):
 				start_pds.clicked.connect(partial(start_operation, "PDS"))
 				widgets["start_pds"].append(start_pds)
 				
-				# Start Road Safety Recommendation System button
-				start_dnds = create_button("Road Safety Recommendation System")
+				# Start Driving Negligence Dissuader System button
+				start_dnds = create_button("Driving Negligence Dissuader")
 				start_dnds.clicked.connect(partial(start_operation, "DNDS"))
 				widgets["start_dnds"].append(start_dnds)
 				
 				# footer widget
 				footer = create_label()
 				footer.setObjectName("footer")
-				footer_text = """Weather in Bhubaneswar, Odisha, India:
-					Description: Haze
-					Temperature: 27 °C
-					Humidity: 100%
-					Wind Speed: 4 km/h
-				"""
-				# footer_text = \
-				# 	'Weather in {}\n'\
-				# 	'Description: {}\n'\
-			    #     'Temperature: {} °C\n'\
-			    #     'Humidity: {}%\n'\
-			    #     'Wind Speed: {} km/h\n'\
-				# 	.format(city,description, temperature, humidity, wind_speed)
+				footer_text = \
+					'Driving Negligence Dissuader System (DNDS) is a vehicle safety system that detects drivers ' \
+					'drowsiness and yawning.\nThe system also monitors the road in front to detect the road lanes ' \
+					'and other object in front of the vehicle'
 				footer.setAlignment(QtCore.Qt.AlignCenter)
 				footer.setText(footer_text)
 				footer.setWordWrap(True)
 				widgets["footer"].append(footer)
-				
 				
 				# place widgets on the grid
 				grid.addWidget(widgets["close_reset_dnds"][-1], 0, 0, 1, 1)
